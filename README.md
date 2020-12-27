@@ -10,6 +10,16 @@ Create and deploy a Django website with a pretty domain name and https.
 * Google Domains (where you will buy your domain name)
 
 
+## Strategy of this guide
+
+* First deploy the site as is (simple hello world template) on Linode and see it live at your Linode ip address http://101.42.69.777
+
+* Then buy a domain name like www.example.com on Google Domains
+
+* Then set up https
+
+* Then set up the site on your personal computer for local development
+
 ## Deploy on Linode
 
 * Go to www.linode.com
@@ -33,6 +43,34 @@ docker-compose up -d                                                            
 # Done! Open your browser and go to your Linode ip, http://101.42.69.777
 ```
 
+## Add a domain name
+
+* Buy a domain name on Google Domains, for example www.example.com
+  * In mid 2020 it was $12 a year
+  
+* Once you've purchased it... go to https://domains.google.com/m/registrar 
+  * Click on My domains
+  * Find your domain and click on it
+  * In the left hand pane, click on "DNS"
+
+* Scroll down to the bottom where it says "Custom resource records"
+  * You want to add two rows that ultimately look like below
+  * Do this by filling out the fields and hitting "Add"
+```
+@       A       1h     101.42.69.777
+www     CNAME   1h     example.com.
+```
+
+* Wait a few hours for this to catch on. Note: if you had previously paired this domain name with another ip address you might have to flush the dns cache on your browser. Otherwise when you navigate to example.com you won't see your new page 
+  * You can go to https://dnschecker.org/ and plug in your website name "www.example.com" to check if the association has been made yet between your EC2 ip and your site name
+
+
+
+## Additional deployment steps
+
+* Update the superuser for the site. Go to www.example.com/admin/
+  * Login and password are both admin. Change this to something else
+
 ## Local development
 
 * Follow these steps to run your site on your local computer and start developing
@@ -50,4 +88,13 @@ python3 -m venv venv                                                      # Make
 pip install -r requirements.txt                                           # Install dependencies like Django
 source venv/bin/activate                                                  # Activate virtual environment
 python myapp/manage.py runserver                                          # Open your browser and go to http://localhost:8000
+```
+
+## Container management commands
+```
+docker-compose up -d                                                     # Start running containers
+docker-compose down                                                      # Stop containers
+docker volume prune                                                      # Delete container data
+docker exec -it container_nginx sh                                       # Access the container running Nginx
+docker exec -it container_django_gunicorn bash                           # Access the container running Django and Gunicorn 
 ```
