@@ -34,15 +34,15 @@ Create and deploy a Django website with a pretty domain name and https.
 
 ```
 # Starting from your local computer
-scp -i ~/.ssh/linode_ssh_key_name github_key_name root@101.42.69.777:~/.ssh/          # Send your GitHub SSH key to your Linode
-ssh -i ~/.ssh/id_rsa root@101.42.69.777                                               # SSH into your Linode
-git clone git@github.com:hongjinn/myproject-docker-django-gunicorn-nginx.git          # Clone this repository into your Linode
-cd myproject-docker-django-gunicorn-nginx                                             # Go into the folder you just created
+scp -i ~/.ssh/linode_ssh_key_name ~/.ssh/github_key_name root@101.42.69.777:~/.ssh/       # Send your GitHub SSH key to your Linode
+ssh -i ~/.ssh/github_key root@101.42.69.777                                               # SSH into your Linode
+git clone git@github.com:hongjinn/myproject-docker-django-gunicorn-nginx.git              # Clone this repository into your Linode
+cd myproject-docker-django-gunicorn-nginx                                                 # Go into the folder you just created
 
 # Now let's edit the server name
 nano nginx/default.conf
-# Update this line: server_name 101.42.69.777 example.com www.example.com;
-# Using your Linode ip and the name of the domain you're buying
+# Update this line: server_name example.com www.example.com;
+# Using the name of the domain you're buying
 
 docker-compose up -d                                                                  # Start docker containers
 
@@ -76,11 +76,25 @@ www     CNAME   1h     example.com.
 
 ## Make it https
 
-* From your Linode, run the command ```docker exec -it container_nginx certbot --nginx -d example.com -d www.example.com```
+* From your Linode, run the command ```docker exec -it container_nginx certbot --nginx -d example.com -d www.example.com``` and replace example.com  with the domain you bought
   * Fill in your email address
   * Agree to the terms of service
   * Share your email if you want to (not necessary)
   * Choose option 2 to redirect http traffic to https
+  
+* To check which ports are open on your Linode ```sudo lsof -i -P -n | grep LISTEN```
+  * Alternatively you can also do ```apt install net-tools``` and then ```netstat -tln```
+
+
+===================================================================
+* Now we need to open port 443 on your Linode
+```
+apt-get install ufw
+ufw allow 443
+```
+* Run this command and hit yes through the prompts ```apt-get install iptables-persistent```
+===================================================================
+
 
 ## Additional deployment steps
 
