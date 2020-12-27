@@ -25,7 +25,9 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DJANGO_DEBUG")
 
-ALLOWED_HOSTS = ['localhost', '101.42.69.777', 'www.example.com']
+# Django is the name of the upstream server Gunicorn
+# Check the docker-compose.yaml file in the root directory
+ALLOWED_HOSTS = ['django']
 
 
 # Application definition

@@ -2,6 +2,7 @@ version: '3.7'
 
 services:
   django_gunicorn:
+    container_name: container_django_gunicorn
     volumes:
       - static:/myproject/myapp/static
     env_file:
@@ -11,6 +12,7 @@ services:
     ports:
       - "8000:8000"
   nginx:
+    container_name: container_nginx
     build: ./nginx
     volumes:
       - static:/static
