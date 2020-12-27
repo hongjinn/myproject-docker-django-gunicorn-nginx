@@ -38,6 +38,12 @@ scp -i ~/.ssh/linode_ssh_key_name github_key_name root@101.42.69.777:~/.ssh/    
 ssh -i ~/.ssh/id_rsa root@101.42.69.777                                               # SSH into your Linode
 git clone git@github.com:hongjinn/myproject-docker-django-gunicorn-nginx.git          # Clone this repository into your Linode
 cd myproject-docker-django-gunicorn-nginx                                             # Go into the folder you just created
+
+# Now let's edit the server name
+nano nginx/default.conf
+# Update this line: server_name 101.42.69.777 example.com www.example.com;
+# Using your Linode ip and the name of the domain you're buying (not example.com)
+
 docker-compose up -d                                                                  # Start docker containers
 
 # Done! Open your browser and go to your Linode ip, http://101.42.69.777
