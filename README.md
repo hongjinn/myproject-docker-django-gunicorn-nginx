@@ -10,22 +10,66 @@ Create and deploy a Django website with a pretty domain name and https.
 * Google Domains (where you will buy your domain name)
 
 
+## Strategy of this guide
+
+* First deploy the site as is (simple hello world template) on Linode and see it live at your Linode ip address http://101.42.69.777
+
+* Then buy a domain name like www.example.com on Google Domains
+
+* Then set up https
+
+* Then set up the site on your personal computer for local development
+
 ## Deploy on Linode
 
-* Follow these steps to deploy immediately on Linode and see your site
+* Go to www.linode.com
 
-* 
+* Create a Linode -> Marketplace -> Select "Docker"
+
+* Select Region = Fremont and Linode Plan = Linode 2GB
+
+* Enter a Linode Label such as example.com and Root Password
+
+* Hit Create and wait for your Linode to boot up
+
+```
+# Starting from your local computer
+scp -i ~/.ssh/linode_ssh_key_name github_key_name root@101.42.69.777:~/.ssh/          # Send your GitHub SSH key to your Linode
+ssh -i ~/.ssh/id_rsa root@101.42.69.777                                               # SSH into your Linode
+git clone git@github.com:hongjinn/myproject-docker-django-gunicorn-nginx.git          # Clone this repository into your Linode
+cd myproject-docker-django-gunicorn-nginx                                             # Go into the folder you just created
+docker-compose up -d                                                                  # Start docker containers
+
+# Done! Open your browser and go to your Linode ip, http://101.42.69.777
+```
+
+## Add a domain name
+
+* Buy a domain name on Google Domains, for example www.example.com
+  * In mid 2020 it was $12 a year
+  
+* Once you've purchased it... go to https://domains.google.com/m/registrar 
+  * Click on My domains
+  * Find your domain and click on it
+  * In the left hand pane, click on "DNS"
+
+* Scroll down to the bottom where it says "Custom resource records"
+  * You want to add two rows that ultimately look like below
+  * Do this by filling out the fields and hitting "Add"
+```
+@       A       1h     101.42.69.777
+www     CNAME   1h     example.com.
+```
+
+* Wait a few hours for this to catch on. Note: if you had previously paired this domain name with another ip address you might have to flush the dns cache on your browser. Otherwise when you navigate to example.com you won't see your new page 
+  * You can go to https://dnschecker.org/ and plug in your website name "www.example.com" to check if the association has been made yet between your EC2 ip and your site name
 
 
-* Start an EC2 on AWS
 
-* SSH into your EC2
+## Additional deployment steps
 
-* Clone this repository
-
-* Run the command ```docker-compose up```
-
-* Visit your EC2 ip address in your browser
+* Update the superuser for the site. Go to www.example.com/admin/
+  * Login and password are both admin. Change this to something else
 
 ## Local development
 
@@ -45,3 +89,14 @@ pip install -r requirements.txt                                           # Inst
 source venv/bin/activate                                                  # Activate virtual environment
 python myapp/manage.py runserver                                          # Open your browser and go to http://localhost:8000
 ```
+
+## Container management commands
+```
+docker-compose up -d                                                     # Start running containers
+docker-compose down                                                      # Stop containers
+docker volume prune                                                      # Delete container data
+docker exec -it container_nginx sh                                       # Access the container running Nginx
+docker exec -it container_django_gunicorn bash                           # Access the container running Django and Gunicorn
+# Location of data in container django_gunicorn: /var/lib/docker/volumes/
+```
+
