@@ -35,7 +35,8 @@ Create and deploy a Django website with a pretty domain name and https.
 # Clone this repository from your personal computer
 git clone git@github.com:hongjinn/myproject-docker-django-gunicorn-nginx.git              
 
-# Once cloned, feel free to change the name of the root folder only, from "myproject-docker-django-gunicorn-nginx" to "whateveryouwant"
+# Once cloned, feel free to change the name of the root folder only,
+# from "myproject-docker-django-gunicorn-nginx" to "whateveryouwant"
 
 # From the root folder, ie "myproject-docker-django-gunicorn-nginx" or "whateveryouwant"
 source .env_local                                                         # Set environmental variables
