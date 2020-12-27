@@ -96,5 +96,7 @@ docker-compose up -d                                                     # Start
 docker-compose down                                                      # Stop containers
 docker volume prune                                                      # Delete container data
 docker exec -it container_nginx sh                                       # Access the container running Nginx
-docker exec -it container_django_gunicorn bash                           # Access the container running Django and Gunicorn 
+docker exec -it container_django_gunicorn bash                           # Access the container running Django and Gunicorn
+# Location of data in container django_gunicorn: /var/lib/docker/volumes/
 ```
+
