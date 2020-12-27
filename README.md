@@ -74,7 +74,13 @@ www     CNAME   1h     example.com.
 * Wait a few hours for this to catch on. Note: if you had previously paired this domain name with another ip address you might have to flush the dns cache on your browser. Otherwise when you navigate to example.com you won't see your new page 
   * You can go to https://dnschecker.org/ and plug in your website name "www.example.com" to check if the association has been made yet between your EC2 ip and your site name
 
+## Make it https
 
+* From your Linode, run the command ```docker exec -it container_nginx certbot --nginx -d example.com -d www.example.com```
+  * Fill in your email address
+  * Agree to the terms of service
+  * Share your email if you want to (not necessary)
+  * Choose option 2 to redirect http traffic to https
 
 ## Additional deployment steps
 
