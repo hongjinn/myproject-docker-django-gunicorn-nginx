@@ -42,7 +42,7 @@ cd myproject-docker-django-gunicorn-nginx                                       
 # Now let's edit the server name
 nano nginx/default.conf
 # Update this line: server_name 101.42.69.777 example.com www.example.com;
-# Using your Linode ip and the name of the domain you're buying (not example.com)
+# Using your Linode ip and the name of the domain you're buying
 
 docker-compose up -d                                                                  # Start docker containers
 
