@@ -27,7 +27,7 @@ DEBUG = os.getenv("DJANGO_DEBUG")
 
 # Django is the name of the upstream server Gunicorn
 # Check the docker-compose.yaml file in the root directory
-ALLOWED_HOSTS = ['django']
+ALLOWED_HOSTS = ['django', 'localhost', '127.0.0.1']
 
 
 # Application definition
