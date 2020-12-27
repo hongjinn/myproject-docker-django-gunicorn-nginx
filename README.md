@@ -43,6 +43,10 @@ docker-compose up -d                                                            
 # Done! Open your browser and go to your Linode ip, http://101.42.69.777
 ```
 
+* Now go to http://101.42.69.777/admin
+  * Make sure you replace with your Linode ip
+  * Login/password is admin/admin. Please change this right away
+
 ## Add a domain name
 
 * Buy a domain name on Google Domains, for example www.example.com
@@ -98,5 +102,6 @@ docker volume prune                                                      # Delet
 docker exec -it container_nginx sh                                       # Access the container running Nginx
 docker exec -it container_django_gunicorn bash                           # Access the container running Django and Gunicorn
 # Location of data in container django_gunicorn: /var/lib/docker/volumes/
+# Location of Sqlite data: /var/lib/docker/volumes/myproject-docker-django-gunicorn-nginx_db/_data
 ```
 
