@@ -12,20 +12,26 @@ Create and deploy a Django website with a pretty domain name and https.
 
 ## Deploy on Linode
 
-* Follow these steps to deploy immediately on Linode and see your site
+* Go to www.linode.com
 
-* 
+* Create a Linode -> Marketplace -> Select "Docker"
 
+* Select Region = Fremont and Linode Plan = Linode 2GB
 
-* Start an EC2 on AWS
+* Enter a Linode Label such as example.com and Root Password
 
-* SSH into your EC2
+* Hit Create and wait for your Linode to boot up
 
-* Clone this repository
+```
+# Starting from your local computer
+scp -i ~/.ssh/linode_ssh_key_name github_key_name root@101.42.69.777:~/.ssh/          # Send your GitHub SSH key to your Linode
+ssh -i ~/.ssh/id_rsa root@101.42.69.777                                               # SSH into your Linode
+git clone git@github.com:hongjinn/myproject-docker-django-gunicorn-nginx.git          # Clone this repository into your Linode
+cd myproject-docker-django-gunicorn-nginx                                             # Go into the folder you just created
+docker-compose up -d                                                                  # Start docker containers
 
-* Run the command ```docker-compose up```
-
-* Visit your EC2 ip address in your browser
+# Done! Open your browser and go to your Linode ip, http://101.42.69.777
+```
 
 ## Local development
 
