@@ -83,23 +83,6 @@ www     CNAME   1h     example.com.
   * Choose option 2 to redirect http traffic to https
   
 * To check which ports are open on your Linode ```sudo lsof -i -P -n | grep LISTEN```
-  * Alternatively you can also do ```apt install net-tools``` and then ```netstat -tln```
-
-
-===================================================================
-* Now we need to open port 443 on your Linode
-```
-apt-get install ufw
-ufw allow 443
-```
-* Run this command and hit yes through the prompts ```apt-get install iptables-persistent```
-===================================================================
-
-
-## Additional deployment steps
-
-* Update the superuser for the site. Go to www.example.com/admin/
-  * Login and password are both admin. Change this to something else
 
 ## Local development
 
